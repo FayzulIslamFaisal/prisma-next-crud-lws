@@ -3,7 +3,7 @@ import { prismaDb } from "@/app/libs/db";
 
 export async function GET() {
   try {
-    const pins = await prismaDb.pin.findMany({
+    const pins = await prismaDb.Pin.findMany({
       orderBy: {
         id: "desc",
       },

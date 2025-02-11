@@ -1,15 +1,18 @@
 "use client";
 import fetchPinDatas from "@/app/apiService/getAllPins";
+import updatePinData from "@/app/apiService/updatePinData";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Page = ({ params }) => {
-  const { id: edit_id } = React.use(params); 
+  const { id: edit_id } = React.use(params);
   const [pinEditData, setPinEditData] = useState({
     title: "",
     description: "",
     type: "",
     content: "",
   });
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPinDataInfo = async () => {
@@ -44,8 +47,22 @@ const Page = ({ params }) => {
     setPinEditData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!edit_id) return;
+
+    const response = await updatePinData(edit_id, pinEditData);
+
+    if (response) {
+      console.log("Pin updated successfully:", response);
+      router.push("/");
+    } else {
+      console.error("Failed to update pin.");
+    }
+  };
+
   return (
-    <form className="max-w-[450px] mx-auto p-4">
+    <form onSubmit={handleSubmit} className="max-w-[450px] mx-auto p-4">
       <div className="pb-2">
         <input
           type="text"

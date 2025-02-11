@@ -17,7 +17,6 @@ export async function DELETE(req, { params }) {
         id: parseInt(pinId),
       },
     });
-    console.log("deletePin", deletePin);
 
     return NextResponse.json(
       {

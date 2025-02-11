@@ -22,6 +22,5 @@ export async function CreatePins(formData) {
     console.log("Pin created successfully!");
   } catch (error) {
     console.error("Error in CreatePin:", error);
-    alert("Something went wrong, please try again.");
   }
 }
